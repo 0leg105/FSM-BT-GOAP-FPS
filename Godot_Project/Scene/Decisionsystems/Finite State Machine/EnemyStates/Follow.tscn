@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy0ylbkim8g65"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Finite State Machine/EnemyStates/Follow.gd" id="1_n7cgs"]
+
+[node name="Follow" type="Node"]
+script = ExtResource("1_n7cgs")

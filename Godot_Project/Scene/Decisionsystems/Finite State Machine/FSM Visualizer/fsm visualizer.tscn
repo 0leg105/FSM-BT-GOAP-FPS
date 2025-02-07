@@ -1,0 +1,134 @@
+[gd_scene load_steps=3 format=3 uid="uid://8wbx0bihd0i5"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Finite State Machine/FSM Visualizer/fsm_visualizer_window.gd" id="1_rajmn"]
+[ext_resource type="PackedScene" uid="uid://b3a18iklo0xr" path="res://Scene/Decisionsystems/Finite State Machine/FSM Visualizer/FSMNode.tscn" id="2_7nok8"]
+
+[node name="Window" type="Window"]
+position = Vector2i(50, 50)
+size = Vector2i(1800, 950)
+script = ExtResource("1_rajmn")
+
+[node name="GraphEdit" type="GraphEdit" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+show_grid = false
+show_menu = false
+show_zoom_buttons = false
+show_grid_buttons = false
+show_minimap_button = false
+show_arrange_button = false
+
+[node name="Idle" parent="GraphEdit" node_paths=PackedStringArray("action_on") instance=ExtResource("2_7nok8")]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 200.0
+offset_right = 174.0
+offset_bottom = 383.0
+scale = Vector2(1, 1)
+mouse_filter = 1
+position_offset = Vector2(10, 200)
+title = "Idle"
+action_on = [NodePath("../Alert")]
+
+[node name="Alert" parent="GraphEdit" node_paths=PackedStringArray("action_on") instance=ExtResource("2_7nok8")]
+layout_mode = 1
+offset_left = 250.0
+offset_top = 300.0
+offset_right = 414.0
+offset_bottom = 483.0
+scale = Vector2(1, 1)
+mouse_filter = 1
+position_offset = Vector2(250, 300)
+title = "Alert"
+action_on = [NodePath("../Shoot"), NodePath("../Melee"), NodePath("../Reload"), NodePath("../SearchPlayer"), NodePath("../Patrol"), NodePath("../MoveToCover"), NodePath("../InCoverShoor")]
+
+[node name="Shoot" parent="GraphEdit" node_paths=PackedStringArray("action_on") instance=ExtResource("2_7nok8")]
+layout_mode = 1
+offset_left = 250.0
+offset_top = 10.0
+offset_right = 414.0
+offset_bottom = 193.0
+scale = Vector2(1, 1)
+mouse_filter = 1
+position_offset = Vector2(250, 10)
+title = "Shoot"
+action_on = [NodePath("../Alert")]
+
+[node name="Melee" parent="GraphEdit" node_paths=PackedStringArray("action_on") instance=ExtResource("2_7nok8")]
+layout_mode = 1
+offset_left = 500.0
+offset_top = 10.0
+offset_right = 664.0
+offset_bottom = 193.0
+scale = Vector2(1, 1)
+mouse_filter = 1
+position_offset = Vector2(500, 10)
+title = "Melee"
+action_on = [NodePath("../Alert")]
+
+[node name="Reload" parent="GraphEdit" node_paths=PackedStringArray("action_on") instance=ExtResource("2_7nok8")]
+layout_mode = 1
+offset_left = 550.0
+offset_top = 150.0
+offset_right = 714.0
+offset_bottom = 333.0
+scale = Vector2(1, 1)
+mouse_filter = 1
+position_offset = Vector2(550, 150)
+title = "Reload"
+action_on = [NodePath("../Alert")]
+
+[node name="SearchPlayer" parent="GraphEdit" node_paths=PackedStringArray("action_on") instance=ExtResource("2_7nok8")]
+layout_mode = 1
+offset_left = 550.0
+offset_top = 300.0
+offset_right = 714.0
+offset_bottom = 483.0
+scale = Vector2(1, 1)
+mouse_filter = 1
+position_offset = Vector2(550, 300)
+title = "SearchPlayer"
+action_on = [NodePath("../Alert")]
+
+[node name="Patrol" parent="GraphEdit" node_paths=PackedStringArray("action_on") instance=ExtResource("2_7nok8")]
+layout_mode = 1
+offset_left = 550.0
+offset_top = 500.0
+offset_right = 714.0
+offset_bottom = 683.0
+scale = Vector2(1, 1)
+mouse_filter = 1
+position_offset = Vector2(550, 500)
+title = "Patrol"
+action_on = [NodePath("../Alert")]
+
+[node name="MoveToCover" parent="GraphEdit" node_paths=PackedStringArray("action_on") instance=ExtResource("2_7nok8")]
+layout_mode = 1
+offset_left = 300.0
+offset_top = 600.0
+offset_right = 464.0
+offset_bottom = 783.0
+scale = Vector2(1, 1)
+mouse_filter = 1
+position_offset = Vector2(300, 600)
+title = "MoveToCover"
+action_on = [NodePath("../Alert"), NodePath("../InCoverShoor")]
+
+[node name="InCoverShoor" parent="GraphEdit" node_paths=PackedStringArray("action_on") instance=ExtResource("2_7nok8")]
+layout_mode = 1
+offset_left = 70.0
+offset_top = 500.0
+offset_right = 234.0
+offset_bottom = 683.0
+scale = Vector2(1, 1)
+mouse_filter = 1
+position_offset = Vector2(70, 500)
+title = "InCoverShoot"
+action_on = [NodePath("../Alert")]
+
+[connection signal="connection_request" from="GraphEdit" to="." method="_on_graph_edit_connection_request"]

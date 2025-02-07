@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnocskbm2rgu3"]
+
+[ext_resource type="Script" path="res://Script/Gun/terrainpart.gd" id="1_65pwy"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wj1gx"]
+emission_shape = 1
+emission_sphere_radius = 0.01
+direction = Vector3(0, 0, -1)
+spread = 0.0
+initial_velocity_min = 3.0
+initial_velocity_max = 6.0
+gravity = Vector3(0, -2.5, 0)
+radial_accel_min = -2.23517e-06
+radial_accel_max = -2.23517e-06
+scale_min = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7fhgp"]
+albedo_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_x6poj"]
+material = SubResource("StandardMaterial3D_7fhgp")
+size = Vector3(0.04, 0.04, 0.04)
+
+[node name="Terrainpart" type="GPUParticles3D"]
+transform = Transform3D(0.121625, 0, 0, 0, -0.0932802, 0, 0, 0, 0.147874, 0, 0, 0)
+emitting = false
+amount = 5
+lifetime = 0.5
+one_shot = true
+speed_scale = 1.5
+explosiveness = 1.0
+collision_base_size = 0.0
+process_material = SubResource("ParticleProcessMaterial_wj1gx")
+draw_pass_1 = SubResource("BoxMesh_x6poj")
+script = ExtResource("1_65pwy")

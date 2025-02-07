@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3a18iklo0xr"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Finite State Machine/FSM Visualizer/FSMNode.gd" id="1_c4ivd"]
+[ext_resource type="Texture2D" uid="uid://bhel52bvkvhge" path="res://Textures/dreieck_rechts.png" id="1_uajfq"]
+[ext_resource type="PackedScene" uid="uid://b1ag24v5veoop" path="res://Scene/Decisionsystems/Finite State Machine/FSM Visualizer/texture_rect.tscn" id="2_26g61"]
+[ext_resource type="Texture2D" uid="uid://bmwo3c4my0gsi" path="res://Textures/circle.png" id="4_0lf7m"]
+
+[node name="Node" type="GraphNode" groups=["FSMNode"]]
+anchors_preset = -1
+anchor_right = 0.048801
+anchor_bottom = 0.0791433
+offset_right = 71.2781
+offset_bottom = 97.5252
+scale = Vector2(0.565378, 0.467075)
+resizable = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(0, 0, 0, 1)
+slot/0/left_icon = ExtResource("1_uajfq")
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(0, 0, 0, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_c4ivd")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" parent="." instance=ExtResource("2_26g61")]
+layout_mode = 2
+texture = ExtResource("4_0lf7m")

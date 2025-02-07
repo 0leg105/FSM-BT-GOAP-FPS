@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://o445onwbdd5g"]
+
+[ext_resource type="Script" path="res://Script/Components/Enemy/move_component.gd" id="1_1nryf"]
+
+[node name="MoveComponent" type="Node3D" groups=["Component"]]
+script = ExtResource("1_1nryf")
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Node3D"]
+navigation_layers = 2

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://qh2actqk63pe"]
+
+[ext_resource type="Script" path="res://Script/Manager/cover_node_manager.gd" id="1_ov83c"]
+
+[node name="CoverNodeManager" type="Node" groups=["cover_node_manager"]]
+script = ExtResource("1_ov83c")

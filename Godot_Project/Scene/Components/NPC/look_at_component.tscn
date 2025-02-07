@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://k6jbqb6f5mft"]
+
+[ext_resource type="Script" path="res://Script/Components/Enemy/look_at_component.gd" id="1_6ckwo"]
+
+[node name="LookAtComponent" type="Node3D" groups=["Component"]]
+script = ExtResource("1_6ckwo")
+
+[node name="Timer" type="Timer" parent="."]

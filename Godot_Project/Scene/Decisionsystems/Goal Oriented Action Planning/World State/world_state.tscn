@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbwhjc021tdkl"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Goal Oriented Action Planning/World State/world_state.gd" id="1_wtc2h"]
+
+[node name="WorldState" type="Node"]
+script = ExtResource("1_wtc2h")

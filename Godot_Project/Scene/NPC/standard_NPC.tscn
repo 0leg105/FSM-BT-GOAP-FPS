@@ -1,0 +1,104 @@
+[gd_scene load_steps=21 format=3 uid="uid://ci0bsopoycth4"]
+
+[ext_resource type="Script" path="res://Script/NPC/enemy.gd" id="1_u880a"]
+[ext_resource type="PackedScene" uid="uid://damvt44myqwuw" path="res://Scene/Manager/state_manager.tscn" id="2_ojhw2"]
+[ext_resource type="PackedScene" uid="uid://e8p1jdhg3tt4" path="res://Scene/Components/NPC/player_block_component.tscn" id="13_5rje2"]
+[ext_resource type="PackedScene" uid="uid://dliea4e5km6h0" path="res://Scene/Components/NPC/health_component.tscn" id="17_bkgkg"]
+[ext_resource type="PackedScene" uid="uid://blpeeh7bcmwgr" path="res://Scene/Components/NPC/HitComponent.tscn" id="18_2nlot"]
+[ext_resource type="PackedScene" uid="uid://b63ip15e1bx8n" path="res://Scene/Components/NPC/melee_component.tscn" id="19_wrxsy"]
+[ext_resource type="PackedScene" uid="uid://cwts430jak01v" path="res://Scene/Components/NPC/shoot_component.tscn" id="20_gkl4f"]
+[ext_resource type="PackedScene" uid="uid://rgihs8kay5qe" path="res://Scene/Components/NPC/neighbor_component.tscn" id="21_g1vo2"]
+[ext_resource type="PackedScene" uid="uid://o445onwbdd5g" path="res://Scene/Components/NPC/move_component.tscn" id="22_iaxct"]
+[ext_resource type="PackedScene" uid="uid://k6jbqb6f5mft" path="res://Scene/Components/NPC/look_at_component.tscn" id="23_n6e0r"]
+[ext_resource type="PackedScene" uid="uid://dek8oafp2renc" path="res://Scene/Components/NPC/patrol_component.tscn" id="24_004et"]
+[ext_resource type="PackedScene" uid="uid://bp35fl5har26t" path="res://Scene/Components/NPC/cover_component.tscn" id="25_7quyo"]
+[ext_resource type="PackedScene" uid="uid://btcbmhfeqsxo8" path="res://Scene/Components/NPC/vision_component.tscn" id="26_41nep"]
+[ext_resource type="PackedScene" uid="uid://c3ww0ogskqj1g" path="res://Scene/Gun/ray_cast_gun.tscn" id="27_c08nh"]
+[ext_resource type="Script" path="res://Script/Debug/LabelNode/fsm_label_node.gd" id="28_2i1g7"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_e2luu"]
+viewport_path = NodePath("LabelNode/SubViewport")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lhmwj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8a0lw"]
+albedo_color = Color(1, 0.0862745, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xpq6d"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ico02"]
+
+[node name="standard_NPC" type="CharacterBody3D" groups=["Enemy"]]
+collision_layer = 2
+floor_constant_speed = true
+script = ExtResource("1_u880a")
+
+[node name="State Manager" parent="." instance=ExtResource("2_ojhw2")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("17_bkgkg")]
+
+[node name="HitComponent" parent="." instance=ExtResource("18_2nlot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MeleeComponent" parent="." instance=ExtResource("19_wrxsy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.5)
+
+[node name="ShootComponent" parent="." instance=ExtResource("20_gkl4f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.5)
+
+[node name="NeighborComponent" parent="." instance=ExtResource("21_g1vo2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MoveComponent" parent="." instance=ExtResource("22_iaxct")]
+
+[node name="LookAtComponent" parent="." instance=ExtResource("23_n6e0r")]
+
+[node name="PatrolComponent" parent="." instance=ExtResource("24_004et")]
+
+[node name="CoverComponent" parent="." instance=ExtResource("25_7quyo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="VisionComponent" parent="." instance=ExtResource("26_41nep")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -9.55491)
+
+[node name="PlayerBlockComponent" parent="." instance=ExtResource("13_5rje2")]
+
+[node name="Gun" type="Node3D" parent="."]
+
+[node name="RayCastGun" parent="Gun" instance=ExtResource("27_c08nh")]
+transform = Transform3D(0.325, 0, 0, 0, 0.325, 0, 0, 0, 0.325, 0.557979, 1.10919, -0.52326)
+
+[node name="LabelNode" type="Node3D" parent="." node_paths=PackedStringArray("state_manager", "label")]
+transform = Transform3D(1, 0, 0, 0, 0.89424, 0, 0, 0, 1, 0, 2.3087, 0)
+script = ExtResource("28_2i1g7")
+state_manager = NodePath("../State Manager")
+label = NodePath("SubViewport/Label")
+
+[node name="SubViewport" type="SubViewport" parent="LabelNode"]
+msaa_2d = 3
+size = Vector2i(250, 340)
+
+[node name="Label" type="Label" parent="LabelNode/SubViewport"]
+offset_right = 107.0
+offset_bottom = 75.0
+text = "
+"
+
+[node name="Sprite3D" type="Sprite3D" parent="LabelNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4756, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_e2luu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["Enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_lhmwj")
+surface_material_override/0 = SubResource("StandardMaterial3D_8a0lw")
+
+[node name="Blickrichtung" type="MeshInstance3D" parent="MeshInstance3D" groups=["Enemy"]]
+transform = Transform3D(9.60918e-05, -0.257346, 0, 0.323903, 7.63464e-05, 0, 0, 0, 0.268447, 0, 0.5, -0.453985)
+mesh = SubResource("CapsuleMesh_xpq6d")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_ico02")

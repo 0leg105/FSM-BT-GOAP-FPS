@@ -1,0 +1,148 @@
+[gd_scene load_steps=30 format=3 uid="uid://b67ci7ralrfmr"]
+
+[ext_resource type="Script" path="res://Script/NPC/bt_enemy.gd" id="1_p7x8j"]
+[ext_resource type="PackedScene" uid="uid://damvt44myqwuw" path="res://Scene/Manager/state_manager.tscn" id="2_te87l"]
+[ext_resource type="Script" path="res://Script/DecisionSystems/BehaviorTree/bt_root.gd" id="3_mqe5n"]
+[ext_resource type="Script" path="res://Script/DecisionSystems/BehaviorTree/composites/selector.gd" id="4_g6p0y"]
+[ext_resource type="Script" path="res://Script/DecisionSystems/BehaviorTree/Enemy Conditions/move_to_cover_condition.gd" id="5_8s2ry"]
+[ext_resource type="Script" path="res://Script/DecisionSystems/BehaviorTree/composites/sequence.gd" id="5_opdmm"]
+[ext_resource type="Script" path="res://Script/DecisionSystems/BehaviorTree/Enemy Actions/Search Player.gd" id="5_yrk5f"]
+[ext_resource type="Script" path="res://Script/DecisionSystems/BehaviorTree/Enemy Actions/Patrol.gd" id="6_et3v2"]
+[ext_resource type="Script" path="res://Script/DecisionSystems/BehaviorTree/Enemy Conditions/player_visible_condition.gd" id="6_rr3n5"]
+[ext_resource type="Script" path="res://Script/DecisionSystems/BehaviorTree/Enemy Actions/mover_to_cover.gd" id="6_tieqd"]
+[ext_resource type="Script" path="res://Script/DecisionSystems/BehaviorTree/Enemy Actions/reload.gd" id="9_ktl2r"]
+[ext_resource type="Script" path="res://Script/DecisionSystems/BehaviorTree/Enemy Actions/melee.gd" id="9_uh63l"]
+[ext_resource type="Script" path="res://Script/DecisionSystems/BehaviorTree/Enemy Actions/shoot.gd" id="10_6d23q"]
+[ext_resource type="PackedScene" uid="uid://dliea4e5km6h0" path="res://Scene/Components/NPC/health_component.tscn" id="14_1htgr"]
+[ext_resource type="PackedScene" uid="uid://blpeeh7bcmwgr" path="res://Scene/Components/NPC/HitComponent.tscn" id="15_3oii3"]
+[ext_resource type="PackedScene" uid="uid://b63ip15e1bx8n" path="res://Scene/Components/NPC/melee_component.tscn" id="16_y1ux8"]
+[ext_resource type="PackedScene" uid="uid://cwts430jak01v" path="res://Scene/Components/NPC/shoot_component.tscn" id="17_35ai8"]
+[ext_resource type="PackedScene" uid="uid://rgihs8kay5qe" path="res://Scene/Components/NPC/neighbor_component.tscn" id="18_4qmpt"]
+[ext_resource type="PackedScene" uid="uid://o445onwbdd5g" path="res://Scene/Components/NPC/move_component.tscn" id="19_txn6m"]
+[ext_resource type="PackedScene" uid="uid://k6jbqb6f5mft" path="res://Scene/Components/NPC/look_at_component.tscn" id="20_t0x4l"]
+[ext_resource type="PackedScene" uid="uid://dek8oafp2renc" path="res://Scene/Components/NPC/patrol_component.tscn" id="21_d8k06"]
+[ext_resource type="PackedScene" uid="uid://bp35fl5har26t" path="res://Scene/Components/NPC/cover_component.tscn" id="22_xpsal"]
+[ext_resource type="PackedScene" uid="uid://btcbmhfeqsxo8" path="res://Scene/Components/NPC/vision_component.tscn" id="23_vdqjn"]
+[ext_resource type="PackedScene" uid="uid://c3ww0ogskqj1g" path="res://Scene/Gun/ray_cast_gun.tscn" id="24_edaxq"]
+[ext_resource type="PackedScene" uid="uid://e8p1jdhg3tt4" path="res://Scene/Components/NPC/player_block_component.tscn" id="24_gfq1l"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lhmwj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8a0lw"]
+albedo_color = Color(0.74709, 0.376559, 0.0515865, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xpq6d"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xqpx3"]
+
+[node name="BT NPC" type="CharacterBody3D" groups=["Enemy"]]
+collision_layer = 2
+floor_constant_speed = true
+script = ExtResource("1_p7x8j")
+
+[node name="StateManager" parent="." instance=ExtResource("2_te87l")]
+
+[node name="BehaviorTreeRoot" type="Node" parent="."]
+script = ExtResource("3_mqe5n")
+
+[node name="SelectorComposite2" type="Node" parent="BehaviorTreeRoot"]
+script = ExtResource("4_g6p0y")
+
+[node name="SelectorComposite" type="Node" parent="BehaviorTreeRoot/SelectorComposite2"]
+script = ExtResource("4_g6p0y")
+
+[node name="Melee" type="Node" parent="BehaviorTreeRoot/SelectorComposite2/SelectorComposite" node_paths=PackedStringArray("melee_component")]
+script = ExtResource("9_uh63l")
+melee_component = NodePath("../../../../MeleeComponent")
+
+[node name="SequenceComposite3" type="Node" parent="BehaviorTreeRoot/SelectorComposite2/SelectorComposite"]
+script = ExtResource("5_opdmm")
+
+[node name="MoveToCoverCondition" type="Node" parent="BehaviorTreeRoot/SelectorComposite2/SelectorComposite/SequenceComposite3" node_paths=PackedStringArray("cover_component")]
+script = ExtResource("5_8s2ry")
+cover_component = NodePath("../../../../../CoverComponent")
+
+[node name="MoverToCover" type="Node" parent="BehaviorTreeRoot/SelectorComposite2/SelectorComposite/SequenceComposite3" node_paths=PackedStringArray("cover_component", "move_component", "character_body")]
+script = ExtResource("6_tieqd")
+cover_component = NodePath("../../../../../CoverComponent")
+move_component = NodePath("../../../../../MoveComponent")
+character_body = NodePath("../../../../..")
+
+[node name="SequenceComposite" type="Node" parent="BehaviorTreeRoot/SelectorComposite2/SelectorComposite"]
+script = ExtResource("5_opdmm")
+
+[node name="Reload" type="Node" parent="BehaviorTreeRoot/SelectorComposite2/SelectorComposite/SequenceComposite" node_paths=PackedStringArray("shoot_component")]
+script = ExtResource("9_ktl2r")
+shoot_component = NodePath("../../../../../ShootComponent")
+
+[node name="Shoot" type="Node" parent="BehaviorTreeRoot/SelectorComposite2/SelectorComposite/SequenceComposite" node_paths=PackedStringArray("shoot_component")]
+script = ExtResource("10_6d23q")
+shoot_component = NodePath("../../../../../ShootComponent")
+
+[node name="SequenceComposite" type="Node" parent="BehaviorTreeRoot/SelectorComposite2"]
+script = ExtResource("5_opdmm")
+
+[node name="SearchPlayerCondition" type="Node" parent="BehaviorTreeRoot/SelectorComposite2/SequenceComposite"]
+script = ExtResource("6_rr3n5")
+
+[node name="SearchPlayer" type="Node" parent="BehaviorTreeRoot/SelectorComposite2/SequenceComposite" node_paths=PackedStringArray("move_component", "character_body", "player_block_component")]
+script = ExtResource("5_yrk5f")
+move_component = NodePath("../../../../MoveComponent")
+character_body = NodePath("../../../..")
+player_block_component = NodePath("../../../../PlayerBlockComponent")
+
+[node name="SequenceComposite2" type="Node" parent="BehaviorTreeRoot/SelectorComposite2"]
+script = ExtResource("5_opdmm")
+
+[node name="Patrol" type="Node" parent="BehaviorTreeRoot/SelectorComposite2/SequenceComposite2" node_paths=PackedStringArray("character_body", "patrol_component", "move_component")]
+script = ExtResource("6_et3v2")
+character_body = NodePath("../../../..")
+patrol_component = NodePath("../../../../PatrolComponent")
+move_component = NodePath("../../../../MoveComponent")
+
+[node name="HealthComponent" parent="." instance=ExtResource("14_1htgr")]
+
+[node name="HitComponent" parent="." instance=ExtResource("15_3oii3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MeleeComponent" parent="." instance=ExtResource("16_y1ux8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.5)
+
+[node name="ShootComponent" parent="." instance=ExtResource("17_35ai8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.5)
+
+[node name="NeighborComponent" parent="." instance=ExtResource("18_4qmpt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MoveComponent" parent="." instance=ExtResource("19_txn6m")]
+
+[node name="LookAtComponent" parent="." instance=ExtResource("20_t0x4l")]
+
+[node name="PatrolComponent" parent="." instance=ExtResource("21_d8k06")]
+
+[node name="CoverComponent" parent="." instance=ExtResource("22_xpsal")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="VisionComponent" parent="." instance=ExtResource("23_vdqjn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -9.55491)
+
+[node name="PlayerBlockComponent" parent="." instance=ExtResource("24_gfq1l")]
+
+[node name="Gun" type="Node3D" parent="."]
+
+[node name="RayCastGun" parent="Gun" instance=ExtResource("24_edaxq")]
+transform = Transform3D(0.325, 0, 0, 0, 0.325, 0, 0, 0, 0.325, 0.557979, 1.10919, -0.52326)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_lhmwj")
+surface_material_override/0 = SubResource("StandardMaterial3D_8a0lw")
+
+[node name="Blickrichtung" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(9.60918e-05, -0.257346, 0, 0.323903, 7.63464e-05, 0, 0, 0, 0.268447, 0, 0.5, -0.453985)
+mesh = SubResource("CapsuleMesh_xpq6d")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_xqpx3")

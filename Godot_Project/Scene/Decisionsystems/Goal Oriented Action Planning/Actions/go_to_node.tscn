@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://3kx5ygipirf"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Goal Oriented Action Planning/Actions/go_to_node.gd" id="1_j7v27"]
+
+[node name="GoToNode" type="Node"]
+script = ExtResource("1_j7v27")

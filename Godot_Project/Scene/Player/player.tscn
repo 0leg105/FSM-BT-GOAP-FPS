@@ -1,0 +1,134 @@
+[gd_scene load_steps=14 format=3 uid="uid://dsckn7yj5cxq"]
+
+[ext_resource type="Script" path="res://Script/Player/player_api.gd" id="1_obl6u"]
+[ext_resource type="PackedScene" uid="uid://cnbnv0t38wnsc" path="res://Scene/Decisionsystems/Finite State Machine/Player/player_fsm.tscn" id="1_qocvk"]
+[ext_resource type="Script" path="res://Script/DecisionSystems/Finite State Machine/PlayerStates/Idle.gd" id="2_4rusr"]
+[ext_resource type="PackedScene" uid="uid://c3ww0ogskqj1g" path="res://Scene/Gun/ray_cast_gun.tscn" id="2_rvj6n"]
+[ext_resource type="Script" path="res://Script/DecisionSystems/Finite State Machine/PlayerStates/Move.gd" id="3_jll8h"]
+[ext_resource type="PackedScene" uid="uid://cfngcxppksilb" path="res://Scene/Components/Player/cover_vision_component.tscn" id="4_xmns8"]
+[ext_resource type="Script" path="res://Script/Components/Player/look_controls.gd" id="6_4owj5"]
+[ext_resource type="Script" path="res://Script/Player/player_shoot.gd" id="7_tk0fs"]
+[ext_resource type="AudioStream" uid="uid://totj6c766rce" path="res://Sounds/ak47-2.wav" id="8_5sji4"]
+[ext_resource type="PackedScene" uid="uid://prbd878gpncc" path="res://Scene/Components/Player/auto_go_component.tscn" id="9_hato3"]
+[ext_resource type="PackedScene" uid="uid://dy0x8pxxhojek" path="res://Scene/Components/Player/auto_move_component.tscn" id="11_6sp1b"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_68jgg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ndrwm"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("fsm") groups=["Player"]]
+collision_mask = 9
+script = ExtResource("1_obl6u")
+fsm = NodePath("FSM")
+
+[node name="FSM" parent="." node_paths=PackedStringArray("initial_state", "head") instance=ExtResource("1_qocvk")]
+initial_state = NodePath("Idle")
+head = NodePath("../Head")
+
+[node name="Idle" type="Node" parent="FSM" node_paths=PackedStringArray("move_component", "auto_component")]
+script = ExtResource("2_4rusr")
+move_component = NodePath("../../AutoMoveComponent")
+auto_component = NodePath("../../AutoGoComponent")
+
+[node name="Move" type="Node" parent="FSM"]
+script = ExtResource("3_jll8h")
+
+[node name="CoverVisionComponent" parent="." instance=ExtResource("4_xmns8")]
+
+[node name="Head" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26829, 0)
+script = ExtResource("6_4owj5")
+
+[node name="Camera3D" type="Camera3D" parent="Head" groups=["Player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.467063, 0)
+cull_mask = 1048573
+current = true
+fov = 90.0
+
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D" groups=["Player"]]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+visible = false
+target_position = Vector3(0, -150, 0)
+collision_mask = 3
+
+[node name="Gun" type="Node3D" parent="Head/Camera3D"]
+script = ExtResource("7_tk0fs")
+
+[node name="RayCastGun" parent="Head/Camera3D/Gun" instance=ExtResource("2_rvj6n")]
+transform = Transform3D(0.325, 0, 0, 0, 0.325, 0, 0, 0, 0.325, 0.581397, -0.237063, -0.906803)
+
+[node name="RayCastGun-Sound" type="AudioStreamPlayer3D" parent="Head/Camera3D/Gun/RayCastGun"]
+stream = ExtResource("8_5sji4")
+volume_db = -40.0
+
+[node name="Firerate" type="Timer" parent="Head/Camera3D/Gun/RayCastGun"]
+wait_time = 0.12
+one_shot = true
+
+[node name="Crosshair" type="Control" parent="Head/Camera3D/Gun"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Center" type="Control" parent="Head/Camera3D/Gun/Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Line2D" type="Line2D" parent="Head/Camera3D/Gun/Crosshair/Center"]
+points = PackedVector2Array(0.001, 0, 0, 0)
+width = 3.5
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Line2D2" type="Line2D" parent="Head/Camera3D/Gun/Crosshair/Center"]
+position = Vector2(10, 0)
+points = PackedVector2Array(10, 0, 0, 0)
+width = 2.5
+
+[node name="Line2D3" type="Line2D" parent="Head/Camera3D/Gun/Crosshair/Center"]
+position = Vector2(0, 10)
+rotation = 1.5708
+points = PackedVector2Array(10, 0, 0, 0)
+width = 2.5
+
+[node name="Line2D4" type="Line2D" parent="Head/Camera3D/Gun/Crosshair/Center"]
+position = Vector2(-10, 0)
+rotation = 3.14159
+points = PackedVector2Array(10, 0, 0, 0)
+width = 2.5
+
+[node name="Line2D5" type="Line2D" parent="Head/Camera3D/Gun/Crosshair/Center"]
+position = Vector2(0, -10)
+rotation = 4.71239
+points = PackedVector2Array(10, 0, 0, 0)
+width = 2.5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+layers = 2
+mesh = SubResource("CapsuleMesh_68jgg")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_ndrwm")
+
+[node name="AutoGoComponent" parent="." node_paths=PackedStringArray("character_body") instance=ExtResource("9_hato3")]
+character_body = NodePath("..")
+
+[node name="AutoMoveComponent" parent="." node_paths=PackedStringArray("character_body") instance=ExtResource("11_6sp1b")]
+character_body = NodePath("..")
+
+[connection signal="timeout" from="Head/Camera3D/Gun/RayCastGun/Firerate" to="Head/Camera3D/Gun" method="_on_firerate_timeout"]

@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4ic3hv2di72y"]
+
+[ext_resource type="Script" path="res://Script/Debug/LabelNode/bt_label_node.gd" id="1_kasnp"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_e2luu"]
+viewport_path = NodePath("SubViewport")
+
+[node name="LabelNode" type="Node3D" groups=["bt_label_info"]]
+transform = Transform3D(1, 0, 0, 0, 0.89424, 0, 0, 0, 1, 0, 2.3087, 0)
+script = ExtResource("1_kasnp")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+msaa_2d = 3
+size = Vector2i(250, 340)
+
+[node name="Label" type="Label" parent="SubViewport"]
+offset_right = 107.0
+offset_bottom = 75.0
+text = "
+"
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4756, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_e2luu")

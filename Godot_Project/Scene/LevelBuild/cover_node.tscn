@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://do6cx1g4v7b57"]
+
+[ext_resource type="Script" path="res://Script/LevelBuild/cover_node.gd" id="1_tvnwx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5ecdw"]
+size = Vector3(0.5, 1, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6tejx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_he0hh"]
+
+[node name="CoverNode" type="Area3D" groups=["CoverNode"]]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_tvnwx")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.336712, 0)
+shape = SubResource("BoxShape3D_5ecdw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_6tejx")
+surface_material_override/0 = SubResource("StandardMaterial3D_he0hh")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+target_position = Vector3(0, 0, -20)
+collision_mask = 23

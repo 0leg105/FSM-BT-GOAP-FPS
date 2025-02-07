@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://e8p1jdhg3tt4"]
+
+[ext_resource type="Script" path="res://Script/Components/Enemy/player_block_component.gd" id="1_0ecds"]
+
+[node name="PlayerBlockComponent" type="Node3D"]
+script = ExtResource("1_0ecds")

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://o445onwbdd5g"]
+
+[ext_resource type="Script" path="res://Script/Components/MoveComponent.gd" id="1_1nryf"]
+[ext_resource type="Script" path="res://Script/Movement/position_change_check.gd" id="2_6ri2a"]
+
+[node name="MoveComponent" type="NavigationAgent3D"]
+avoidance_enabled = true
+radius = 10.0
+avoidance_layers = 2
+avoidance_mask = 2
+script = ExtResource("1_1nryf")
+
+[node name="PositionChangeCheck" type="Node" parent="."]
+script = ExtResource("2_6ri2a")
+
+[connection signal="velocity_computed" from="." to="." method="_on_velocity_computed"]

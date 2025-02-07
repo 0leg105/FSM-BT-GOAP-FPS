@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6adig4qcsr0s"]
+
+[ext_resource type="PackedScene" uid="uid://dnocskbm2rgu3" path="res://Scene/Gun/terrain_part.tscn" id="1_l7hww"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j5ea6"]
+albedo_color = Color(0.771185, 0.123197, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_3jhum"]
+material = SubResource("StandardMaterial3D_j5ea6")
+radius = 0.05
+height = 0.1
+
+[node name="Enemypart" instance=ExtResource("1_l7hww")]
+transform = Transform3D(0.121625, 0, 0, 0, -0.0932802, 0, 0, 0, 0.128243, 0, 0, 0)
+draw_pass_1 = SubResource("SphereMesh_3jhum")

@@ -1,0 +1,129 @@
+[gd_scene load_steps=30 format=3 uid="uid://wsnnowv6tnav"]
+
+[ext_resource type="Script" path="res://Script/NPC/goap_enemy.gd" id="1_kiofd"]
+[ext_resource type="PackedScene" uid="uid://damvt44myqwuw" path="res://Scene/Manager/state_manager.tscn" id="2_2ab3d"]
+[ext_resource type="PackedScene" uid="uid://blpeeh7bcmwgr" path="res://Scene/Components/NPC/HitComponent.tscn" id="2_c8qsr"]
+[ext_resource type="PackedScene" uid="uid://dliea4e5km6h0" path="res://Scene/Components/NPC/health_component.tscn" id="2_wy0qu"]
+[ext_resource type="PackedScene" uid="uid://c3ww0ogskqj1g" path="res://Scene/Gun/ray_cast_gun.tscn" id="3_8sfvi"]
+[ext_resource type="Script" path="res://Script/DecisionSystems/Goal Oriented Action Planning/A Star Algorithm/goap_a_star_planner.gd" id="3_myfys"]
+[ext_resource type="PackedScene" uid="uid://gs2kdgvsok1d" path="res://Scene/Decisionsystems/Goal Oriented Action Planning/Goals/search_enemy.tscn" id="4_pm560"]
+[ext_resource type="PackedScene" uid="uid://cwts430jak01v" path="res://Scene/Components/NPC/shoot_component.tscn" id="4_qbxuu"]
+[ext_resource type="PackedScene" uid="uid://o445onwbdd5g" path="res://Scene/Components/NPC/move_component.tscn" id="5_7jbr4"]
+[ext_resource type="PackedScene" uid="uid://cnk1iwkl4md78" path="res://Scene/Decisionsystems/Goal Oriented Action Planning/Goals/patrol.tscn" id="5_8capj"]
+[ext_resource type="PackedScene" uid="uid://y5sevm2sjwtm" path="res://Scene/Decisionsystems/Goal Oriented Action Planning/Goals/kill_enemy.tscn" id="6_rks1a"]
+[ext_resource type="PackedScene" uid="uid://4f8nm6nhnb70" path="res://Scene/Decisionsystems/Goal Oriented Action Planning/Goals/idle.tscn" id="8_kb84n"]
+[ext_resource type="PackedScene" uid="uid://btcbmhfeqsxo8" path="res://Scene/Components/NPC/vision_component.tscn" id="9_leikf"]
+[ext_resource type="PackedScene" uid="uid://foj3gnu7asda" path="res://Scene/Decisionsystems/Goal Oriented Action Planning/Actions/ranged_attack.tscn" id="10_0hgfn"]
+[ext_resource type="PackedScene" uid="uid://dp6kt4s216w6r" path="res://Scene/Decisionsystems/Goal Oriented Action Planning/Actions/ranged_attack_from_cover.tscn" id="11_aqw6o"]
+[ext_resource type="PackedScene" uid="uid://r8k7kt3cpdjg" path="res://Scene/Decisionsystems/Goal Oriented Action Planning/Actions/melee_attack.tscn" id="11_i4bwj"]
+[ext_resource type="Script" path="res://Script/DecisionSystems/Goal Oriented Action Planning/Actions/melee_attack.gd" id="12_22whx"]
+[ext_resource type="PackedScene" uid="uid://pi775cggpfff" path="res://Scene/Decisionsystems/Goal Oriented Action Planning/Actions/reload.tscn" id="13_5rukf"]
+[ext_resource type="PackedScene" uid="uid://k6jbqb6f5mft" path="res://Scene/Components/NPC/look_at_component.tscn" id="15_341p8"]
+[ext_resource type="PackedScene" uid="uid://b63ip15e1bx8n" path="res://Scene/Components/NPC/melee_component.tscn" id="15_esi77"]
+[ext_resource type="PackedScene" uid="uid://3kx5ygipirf" path="res://Scene/Decisionsystems/Goal Oriented Action Planning/Actions/go_to_node.tscn" id="15_ts65b"]
+[ext_resource type="PackedScene" uid="uid://dek8oafp2renc" path="res://Scene/Components/NPC/patrol_component.tscn" id="18_556yj"]
+[ext_resource type="PackedScene" uid="uid://rgihs8kay5qe" path="res://Scene/Components/NPC/neighbor_component.tscn" id="19_tj52t"]
+[ext_resource type="PackedScene" uid="uid://bp35fl5har26t" path="res://Scene/Components/NPC/cover_component.tscn" id="26_sae35"]
+[ext_resource type="PackedScene" uid="uid://e8p1jdhg3tt4" path="res://Scene/Components/NPC/player_block_component.tscn" id="27_5lnm4"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lhmwj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8a0lw"]
+albedo_color = Color(1, 0.0862745, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xpq6d"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ur1s5"]
+
+[node name="Agent" type="CharacterBody3D" groups=["Enemy"]]
+collision_layer = 2
+floor_constant_speed = true
+script = ExtResource("1_kiofd")
+
+[node name="StateManager" parent="." instance=ExtResource("2_2ab3d")]
+
+[node name="GOAP Planner" type="Node" parent="." node_paths=PackedStringArray("actions", "goals")]
+script = ExtResource("3_myfys")
+actions = [NodePath("Actions/RangedAttackFromCover"), NodePath("Actions/MeleeAttack"), NodePath("Actions/GoToNode"), NodePath("Actions/Reload"), NodePath("Actions/RangedAttack")]
+goals = [NodePath("Goals/Idle"), NodePath("Goals/KillEnemy"), NodePath("Goals/SearchEnemy"), NodePath("Goals/Patrol")]
+
+[node name="Goals" type="Node" parent="GOAP Planner"]
+
+[node name="KillEnemy" parent="GOAP Planner/Goals" instance=ExtResource("6_rks1a")]
+
+[node name="SearchEnemy" parent="GOAP Planner/Goals" instance=ExtResource("4_pm560")]
+
+[node name="Patrol" parent="GOAP Planner/Goals" instance=ExtResource("5_8capj")]
+
+[node name="Idle" parent="GOAP Planner/Goals" instance=ExtResource("8_kb84n")]
+
+[node name="Actions" type="Node" parent="GOAP Planner"]
+
+[node name="RangedAttack" parent="GOAP Planner/Actions" node_paths=PackedStringArray("shoot_component") instance=ExtResource("10_0hgfn")]
+shoot_component = NodePath("../../../ShootComponent")
+
+[node name="RangedAttackFromCover" parent="GOAP Planner/Actions" node_paths=PackedStringArray("shoot_component", "move_component", "cover_component") instance=ExtResource("11_aqw6o")]
+shoot_component = NodePath("../../../ShootComponent")
+move_component = NodePath("../../../MoveComponent")
+cover_component = NodePath("../../../CoverComponent")
+
+[node name="MeleeAttack" parent="GOAP Planner/Actions" node_paths=PackedStringArray("melee_component") instance=ExtResource("11_i4bwj")]
+script = ExtResource("12_22whx")
+melee_component = NodePath("../../../MeleeComponent")
+
+[node name="GoToNode" parent="GOAP Planner/Actions" node_paths=PackedStringArray("goap_planner", "move_component", "patrol_component", "cover_component") instance=ExtResource("15_ts65b")]
+goap_planner = NodePath("../..")
+move_component = NodePath("../../../MoveComponent")
+patrol_component = NodePath("../../../PatrolComponent")
+cover_component = NodePath("../../../CoverComponent")
+
+[node name="Reload" parent="GOAP Planner/Actions" node_paths=PackedStringArray("shoot_component") instance=ExtResource("13_5rukf")]
+shoot_component = NodePath("../../../ShootComponent")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_wy0qu")]
+
+[node name="HitComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_c8qsr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+health_component = NodePath("../HealthComponent")
+
+[node name="MeleeComponent" parent="." instance=ExtResource("15_esi77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.5)
+
+[node name="ShootComponent" parent="." instance=ExtResource("4_qbxuu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.5)
+
+[node name="NeighborComponent" parent="." instance=ExtResource("19_tj52t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MoveComponent" parent="." instance=ExtResource("5_7jbr4")]
+
+[node name="LookAtComponent" parent="." instance=ExtResource("15_341p8")]
+
+[node name="PatrolComponent" parent="." instance=ExtResource("18_556yj")]
+
+[node name="CoverComponent" parent="." instance=ExtResource("26_sae35")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="VisionComponent" parent="." instance=ExtResource("9_leikf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -9.55491)
+
+[node name="PlayerBlockComponent" parent="." instance=ExtResource("27_5lnm4")]
+
+[node name="Gun" type="Node3D" parent="."]
+
+[node name="RayCastGun" parent="Gun" instance=ExtResource("3_8sfvi")]
+transform = Transform3D(0.325, 0, 0, 0, 0.325, 0, 0, 0, 0.325, 0.557979, 1.10919, -0.52326)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_lhmwj")
+surface_material_override/0 = SubResource("StandardMaterial3D_8a0lw")
+
+[node name="Blickrichtung" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(9.60918e-05, -0.257346, 0, 0.323903, 7.63464e-05, 0, 0, 0, 0.268447, 0, 0.5, -0.453985)
+mesh = SubResource("CapsuleMesh_xpq6d")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_ur1s5")

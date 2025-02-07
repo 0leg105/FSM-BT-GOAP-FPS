@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dduh8kcvnesk7"]
+
+[ext_resource type="Script" path="res://Script/LevelBuild/patrol_node.gd" id="1_8r0xv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o1ib5"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_y0hy1"]
+
+[node name="PatrolNode" type="Area3D" groups=["PatrolNode"]]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_8r0xv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_o1ib5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_y0hy1")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

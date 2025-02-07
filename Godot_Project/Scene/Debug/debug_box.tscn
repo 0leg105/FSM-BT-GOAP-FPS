@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cyrf6n2jej6xk"]
+
+[ext_resource type="Script" path="res://Script/Debug/debug_box.gd" id="1_60e48"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_keekd"]
+albedo_color = Color(1, 0.121569, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hbpnw"]
+material = SubResource("StandardMaterial3D_keekd")
+top_radius = 0.25
+bottom_radius = 0.25
+
+[node name="DebugBox" type="Node3D"]
+visible = false
+script = ExtResource("1_60e48")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CylinderMesh_hbpnw")
+skeleton = NodePath("../..")

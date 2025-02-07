@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnbnv0t38wnsc"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Finite State Machine/PlayerStates/player_fsm.gd" id="1_hb8pa"]
+
+[node name="Player FSM" type="Node" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("1_hb8pa")
+initial_state = NodePath("")

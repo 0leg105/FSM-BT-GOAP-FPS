@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnew2hng84wd7"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Finite State Machine/FSM Visualizer/fsm_visualizer.gd" id="1_qcgpm"]
+[ext_resource type="PackedScene" uid="uid://b1ag24v5veoop" path="res://Scene/Decisionsystems/Finite State Machine/FSM Visualizer/texture_rect.tscn" id="2_quvx5"]
+
+[node name="FSM Visualizer" type="Node2D"]
+script = ExtResource("1_qcgpm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+offset_top = 8.0
+offset_right = 40.0
+offset_bottom = 16.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+
+[node name="SearchPlayer" parent="CanvasLayer/HBoxContainer/VBoxContainer2" instance=ExtResource("2_quvx5")]
+layout_mode = 2
+
+[node name="Idle" parent="CanvasLayer/HBoxContainer/VBoxContainer2" instance=ExtResource("2_quvx5")]
+layout_mode = 2
+
+[node name="Reload" parent="CanvasLayer/HBoxContainer/VBoxContainer2" instance=ExtResource("2_quvx5")]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Patrol" parent="CanvasLayer/HBoxContainer/VBoxContainer" instance=ExtResource("2_quvx5")]
+layout_mode = 2
+
+[node name="Alert" parent="CanvasLayer/HBoxContainer/VBoxContainer" instance=ExtResource("2_quvx5")]
+layout_mode = 2
+
+[node name="Melee" parent="CanvasLayer/HBoxContainer/VBoxContainer" instance=ExtResource("2_quvx5")]
+layout_mode = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MoveToCover" parent="CanvasLayer/HBoxContainer/VBoxContainer3" instance=ExtResource("2_quvx5")]
+layout_mode = 2
+
+[node name="InCoverShoot" parent="CanvasLayer/HBoxContainer/VBoxContainer3" instance=ExtResource("2_quvx5")]
+layout_mode = 2
+
+[node name="Shoot" parent="CanvasLayer/HBoxContainer/VBoxContainer3" instance=ExtResource("2_quvx5")]
+layout_mode = 2

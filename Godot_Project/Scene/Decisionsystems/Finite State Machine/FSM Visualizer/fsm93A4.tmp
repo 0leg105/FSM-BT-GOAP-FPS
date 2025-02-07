@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://8wbx0bihd0i5"]
+
+[ext_resource type="Script" path="res://Script/Finite State Machine/FSM Visualizer/fsm_visualizer_window.gd" id="1_rajmn"]
+[ext_resource type="PackedScene" uid="uid://b3a18iklo0xr" path="res://Scene/FSM/FSM Visualizer/FSMNode.tscn" id="2_7nok8"]
+
+[node name="Window" type="Window"]
+position = Vector2i(50, 36)
+size = Vector2i(1800, 950)
+script = ExtResource("1_rajmn")
+
+[node name="GraphEdit" type="GraphEdit" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+show_menu = false
+show_zoom_buttons = false
+show_grid_buttons = false
+show_minimap_button = false
+show_arrange_button = false
+
+[node name="Node" parent="GraphEdit" instance=ExtResource("2_7nok8")]
+layout_mode = 0
+offset_right = 136.0
+offset_bottom = 155.0
+mouse_filter = 1
+title = "Test"

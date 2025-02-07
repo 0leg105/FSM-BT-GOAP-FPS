@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://4f8nm6nhnb70"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Goal Oriented Action Planning/Goal/idle.gd" id="1_poeie"]
+
+[node name="Idle" type="Node"]
+script = ExtResource("1_poeie")

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://blpeeh7bcmwgr"]
+
+[ext_resource type="Script" path="res://Script/Components/Enemy/hit_component.gd" id="1_d34js"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t3538"]
+
+[node name="HitComponent" type="Node3D" groups=["Component"]]
+script = ExtResource("1_d34js")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_t3538")

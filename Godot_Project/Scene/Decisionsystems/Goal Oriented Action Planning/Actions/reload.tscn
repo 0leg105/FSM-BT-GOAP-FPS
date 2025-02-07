@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://pi775cggpfff"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Goal Oriented Action Planning/Actions/reload.gd" id="1_qna06"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_qna06")

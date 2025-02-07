@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://foj3gnu7asda"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Goal Oriented Action Planning/Actions/ranged_attack.gd" id="1_a84y6"]
+
+[node name="RangedAttack" type="Node"]
+script = ExtResource("1_a84y6")

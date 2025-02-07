@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bp35fl5har26t"]
+
+[ext_resource type="Script" path="res://Script/Components/Enemy/cover_component.gd" id="1_evwdg"]
+
+[node name="CoverComponent" type="Node3D" groups=["Component"]]
+script = ExtResource("1_evwdg")

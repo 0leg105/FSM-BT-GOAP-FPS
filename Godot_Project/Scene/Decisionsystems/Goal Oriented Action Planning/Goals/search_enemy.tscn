@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://gs2kdgvsok1d"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Goal Oriented Action Planning/Goal/search_enemy.gd" id="1_u5jte"]
+
+[node name="SearchEnemy" type="Node"]
+script = ExtResource("1_u5jte")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://rgihs8kay5qe"]
+
+[ext_resource type="Script" path="res://Script/Components/Enemy/neighbor_component.gd" id="1_3d8x7"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_3fnxs"]
+radius = 3.0
+
+[node name="NeighborComponent" type="Node3D" groups=["Component"]]
+script = ExtResource("1_3d8x7")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_3fnxs")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

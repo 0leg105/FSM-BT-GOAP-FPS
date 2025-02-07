@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjcbuuljsvxxk"]
+
+[ext_resource type="Script" path="res://Script/Manager/global_coordinator.gd" id="1_5cuww"]
+
+[node name="GlobalCoordinator" type="Node" groups=["global_coordinator"]]
+script = ExtResource("1_5cuww")

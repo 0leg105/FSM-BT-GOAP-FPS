@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1xn4r2sn447y"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Finite State Machine/EnemyStates/look_to_player.gd" id="1_nqmqu"]
+
+[node name="LookToPlayer" type="Node"]
+script = ExtResource("1_nqmqu")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

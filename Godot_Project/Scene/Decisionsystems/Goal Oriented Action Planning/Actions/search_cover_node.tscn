@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://y7qtplehnuho"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Goal Oriented Action Planning/Actions/search_cover_node.gd" id="1_dxcif"]
+
+[node name="SearchCoverNode" type="Node"]
+script = ExtResource("1_dxcif")

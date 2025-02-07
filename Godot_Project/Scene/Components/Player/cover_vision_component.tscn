@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfngcxppksilb"]
+
+[ext_resource type="Script" path="res://Script/Components/Player/cover_vision_component.gd" id="1_w8n0n"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_px4rg"]
+height = 2.5
+radius = 20.0
+
+[node name="CoverVisionComponent" type="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+script = ExtResource("1_w8n0n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_px4rg")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.840974, 0)
+target_position = Vector3(0, -1, -20)
+collision_mask = 13
+collide_with_areas = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://le8krfi1oe6o"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Goal Oriented Action Planning/Actions/action.gd" id="1_d447b"]
+
+[node name="Action" type="Node"]
+script = ExtResource("1_d447b")

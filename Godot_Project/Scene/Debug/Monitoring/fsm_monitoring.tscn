@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cytmjr455qgpo"]
+
+[ext_resource type="Script" path="res://Script/Debug/Monitoring/fsm_monitoring.gd" id="1_cvkcn"]
+
+[node name="FSM Monitoring" type="Node"]
+script = ExtResource("1_cvkcn")

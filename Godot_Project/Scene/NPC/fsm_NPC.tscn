@@ -1,0 +1,125 @@
+[gd_scene load_steps=30 format=3 uid="uid://728q1fcku4pl"]
+
+[ext_resource type="Script" path="res://Script/NPC/fsm_enemy.gd" id="1_h2cl5"]
+[ext_resource type="PackedScene" uid="uid://damvt44myqwuw" path="res://Scene/Manager/state_manager.tscn" id="2_idixo"]
+[ext_resource type="PackedScene" uid="uid://bqj1quq78lwh6" path="res://Scene/Decisionsystems/Finite State Machine/FSM.tscn" id="3_5grg6"]
+[ext_resource type="PackedScene" uid="uid://dliea4e5km6h0" path="res://Scene/Components/NPC/health_component.tscn" id="3_foqjw"]
+[ext_resource type="PackedScene" uid="uid://blpeeh7bcmwgr" path="res://Scene/Components/NPC/HitComponent.tscn" id="4_3np4m"]
+[ext_resource type="PackedScene" uid="uid://bk50l4o3gnlev" path="res://Scene/Decisionsystems/Finite State Machine/EnemyStates/Idle.tscn" id="4_y71y2"]
+[ext_resource type="PackedScene" uid="uid://bw60h5717xdnj" path="res://Scene/Decisionsystems/Finite State Machine/EnemyStates/Alert.tscn" id="5_10pfj"]
+[ext_resource type="PackedScene" uid="uid://b63ip15e1bx8n" path="res://Scene/Components/NPC/melee_component.tscn" id="5_lnwl3"]
+[ext_resource type="PackedScene" uid="uid://ct5e13uyc5nq0" path="res://Scene/Decisionsystems/Finite State Machine/EnemyStates/melee.tscn" id="6_1d1uq"]
+[ext_resource type="PackedScene" uid="uid://cwts430jak01v" path="res://Scene/Components/NPC/shoot_component.tscn" id="6_7gjea"]
+[ext_resource type="PackedScene" uid="uid://rgihs8kay5qe" path="res://Scene/Components/NPC/neighbor_component.tscn" id="7_g3h31"]
+[ext_resource type="PackedScene" uid="uid://bktqrwi1b8h2f" path="res://Scene/Decisionsystems/Finite State Machine/EnemyStates/MoveToCover.tscn" id="8_k1e8w"]
+[ext_resource type="PackedScene" uid="uid://o445onwbdd5g" path="res://Scene/Components/NPC/move_component.tscn" id="8_ovpbg"]
+[ext_resource type="PackedScene" uid="uid://bg0sgr0nwyqwi" path="res://Scene/Decisionsystems/Finite State Machine/EnemyStates/Shoot.tscn" id="8_ybs07"]
+[ext_resource type="PackedScene" uid="uid://k6jbqb6f5mft" path="res://Scene/Components/NPC/look_at_component.tscn" id="9_c7f26"]
+[ext_resource type="PackedScene" uid="uid://caq7q1ypyboch" path="res://Scene/Decisionsystems/Finite State Machine/EnemyStates/in_cover_shoot.tscn" id="9_sutct"]
+[ext_resource type="PackedScene" uid="uid://dek8oafp2renc" path="res://Scene/Components/NPC/patrol_component.tscn" id="10_gk11h"]
+[ext_resource type="PackedScene" uid="uid://dbg31kjdvckp" path="res://Scene/Decisionsystems/Finite State Machine/EnemyStates/search_player.tscn" id="10_nnycp"]
+[ext_resource type="PackedScene" uid="uid://igf8qfv37ivq" path="res://Scene/Decisionsystems/Finite State Machine/EnemyStates/patrol.tscn" id="11_b7r3k"]
+[ext_resource type="PackedScene" uid="uid://bp35fl5har26t" path="res://Scene/Components/NPC/cover_component.tscn" id="11_krigm"]
+[ext_resource type="PackedScene" uid="uid://bjhecp2khkvnr" path="res://Scene/Decisionsystems/Finite State Machine/EnemyStates/reload.tscn" id="12_67pab"]
+[ext_resource type="PackedScene" uid="uid://btcbmhfeqsxo8" path="res://Scene/Components/NPC/vision_component.tscn" id="12_w2byx"]
+[ext_resource type="Script" path="res://Script/DecisionSystems/Finite State Machine/EnemyStates/reload.gd" id="13_pri8y"]
+[ext_resource type="PackedScene" uid="uid://c3ww0ogskqj1g" path="res://Scene/Gun/ray_cast_gun.tscn" id="13_uclou"]
+[ext_resource type="PackedScene" uid="uid://e8p1jdhg3tt4" path="res://Scene/Components/NPC/player_block_component.tscn" id="24_l8n4s"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lhmwj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8a0lw"]
+albedo_color = Color(0.252807, 0.640777, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xpq6d"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_18wl3"]
+
+[node name="FSM NPC" type="CharacterBody3D" groups=["Enemy"]]
+collision_layer = 2
+floor_constant_speed = true
+script = ExtResource("1_h2cl5")
+
+[node name="StateManager" parent="." instance=ExtResource("2_idixo")]
+
+[node name="FiniteStateMachine" parent="." node_paths=PackedStringArray("initial_state", "state_manager") instance=ExtResource("3_5grg6")]
+initial_state = NodePath("Alert")
+state_manager = NodePath("../StateManager")
+
+[node name="Idle" parent="FiniteStateMachine" instance=ExtResource("4_y71y2")]
+
+[node name="Alert" parent="FiniteStateMachine" node_paths=PackedStringArray("cover_component") instance=ExtResource("5_10pfj")]
+cover_component = NodePath("../../CoverComponent")
+
+[node name="MoveToCover" parent="FiniteStateMachine" node_paths=PackedStringArray("move_component", "cover_component") instance=ExtResource("8_k1e8w")]
+move_component = NodePath("../../MoveComponent")
+cover_component = NodePath("../../CoverComponent")
+
+[node name="Melee" parent="FiniteStateMachine" node_paths=PackedStringArray("melee_component") instance=ExtResource("6_1d1uq")]
+melee_component = NodePath("../../MeleeComponent")
+
+[node name="Shoot" parent="FiniteStateMachine" node_paths=PackedStringArray("shoot_component") instance=ExtResource("8_ybs07")]
+shoot_component = NodePath("../../ShootComponent")
+
+[node name="InCoverShoot" parent="FiniteStateMachine" node_paths=PackedStringArray("shoot_component") instance=ExtResource("9_sutct")]
+shoot_component = NodePath("../../ShootComponent")
+
+[node name="SearchPlayer" parent="FiniteStateMachine" node_paths=PackedStringArray("move_component", "player_block_component") instance=ExtResource("10_nnycp")]
+move_component = NodePath("../../MoveComponent")
+player_block_component = NodePath("../../PlayerBlockComponent")
+
+[node name="Patrol" parent="FiniteStateMachine" node_paths=PackedStringArray("patrol_component", "move_component") instance=ExtResource("11_b7r3k")]
+patrol_component = NodePath("../../PatrolComponent")
+move_component = NodePath("../../MoveComponent")
+
+[node name="Reload" parent="FiniteStateMachine" node_paths=PackedStringArray("shoot_component") instance=ExtResource("12_67pab")]
+script = ExtResource("13_pri8y")
+shoot_component = NodePath("../../ShootComponent")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_foqjw")]
+
+[node name="HitComponent" parent="." instance=ExtResource("4_3np4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MeleeComponent" parent="." instance=ExtResource("5_lnwl3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="ShootComponent" parent="." instance=ExtResource("6_7gjea")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="NeighborComponent" parent="." instance=ExtResource("7_g3h31")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MoveComponent" parent="." instance=ExtResource("8_ovpbg")]
+
+[node name="LookAtComponent" parent="." instance=ExtResource("9_c7f26")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="PatrolComponent" parent="." instance=ExtResource("10_gk11h")]
+
+[node name="CoverComponent" parent="." instance=ExtResource("11_krigm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="VisionComponent" parent="." instance=ExtResource("12_w2byx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.51618, -10)
+
+[node name="PlayerBlockComponent" parent="." instance=ExtResource("24_l8n4s")]
+
+[node name="Gun" type="Node3D" parent="."]
+
+[node name="RayCastGun" parent="Gun" instance=ExtResource("13_uclou")]
+transform = Transform3D(0.325, 0, 0, 0, 0.325, 0, 0, 0, 0.325, 0.557979, 1.10919, -0.52326)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_lhmwj")
+surface_material_override/0 = SubResource("StandardMaterial3D_8a0lw")
+
+[node name="Blickrichtung" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(9.60918e-05, -0.257346, 0, 0.323903, 7.63464e-05, 0, 0, 0, 0.268447, 0, 0.5, -0.453985)
+mesh = SubResource("CapsuleMesh_xpq6d")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_18wl3")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://caq7q1ypyboch"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Finite State Machine/EnemyStates/in_cover_shoot.gd" id="1_33ngi"]
+
+[node name="InCoverShoot" type="Node"]
+script = ExtResource("1_33ngi")

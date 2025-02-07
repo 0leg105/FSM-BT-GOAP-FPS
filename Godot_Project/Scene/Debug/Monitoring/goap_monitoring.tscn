@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b04gqnm62tt11"]
+
+[ext_resource type="Script" path="res://Script/Debug/Monitoring/goap_monitoring_functions.gd" id="1_70350"]
+
+[node name="GOAP Monitoring" type="Node"]
+script = ExtResource("1_70350")

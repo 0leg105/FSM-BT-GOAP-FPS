@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://o445onwbdd5g"]
+
+[ext_resource type="Script" path="res://Script/Components/MoveComponent.gd" id="1_1nryf"]
+[ext_resource type="Script" path="res://Script/Movement/kinematic_seek.gd" id="2_fs3on"]
+[ext_resource type="Script" path="res://Script/Movement/steering_output.gd" id="3_17qq8"]
+
+[node name="MoveComponent" type="NavigationAgent3D"]
+avoidance_enabled = true
+radius = 5.0
+avoidance_layers = 2
+avoidance_mask = 0
+script = ExtResource("1_1nryf")
+
+[node name="KinematicSeek" type="Node" parent="."]
+script = ExtResource("2_fs3on")
+
+[node name="SteeringOutput" type="Node" parent="."]
+script = ExtResource("3_17qq8")
+
+[connection signal="velocity_computed" from="." to="." method="_on_velocity_computed"]

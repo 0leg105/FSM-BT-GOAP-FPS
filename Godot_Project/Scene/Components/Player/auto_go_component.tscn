@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://prbd878gpncc"]
+
+[ext_resource type="Script" path="res://Script/Components/Player/auto_go_component.gd" id="1_ktoqx"]
+
+[node name="AutoGoComponent" type="Node3D"]
+script = ExtResource("1_ktoqx")

@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbjlayx3nebmh"]
+
+[ext_resource type="Script" path="res://Script/Menue/scene_selector.gd" id="1_kkqv6"]
+[ext_resource type="Texture2D" uid="uid://bipf3owlwpw45" path="res://Textures/menue/border1.png" id="1_ufxhm"]
+[ext_resource type="Texture2D" uid="uid://bes6vnycdqucl" path="res://Textures/menue/border2.png" id="2_l0nl6"]
+
+[node name="CenterContainer" type="CenterContainer"]
+offset_right = 500.0
+offset_bottom = 300.0
+script = ExtResource("1_kkqv6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="VBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(460, 259)
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/CenterContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(460, 259)
+size_2d_override = Vector2i(1920, 1080)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer/CenterContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_ufxhm")
+texture_pressed = ExtResource("2_l0nl6")
+texture_hover = ExtResource("2_l0nl6")
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/CenterContainer/TextureButton" to="." method="_on_texture_button_pressed"]

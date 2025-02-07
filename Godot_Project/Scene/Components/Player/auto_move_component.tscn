@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy0x8pxxhojek"]
+
+[ext_resource type="Script" path="res://Script/Components/Player/auto_move_component.gd" id="1_d7v58"]
+
+[node name="AutoMoveComponent" type="Node3D"]
+script = ExtResource("1_d7v58")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

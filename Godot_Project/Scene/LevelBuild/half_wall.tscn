@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dbe44ylair0qs"]
+
+[node name="CSGBox3D" type="CSGBox3D" groups=["Obstacle"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.381813, -5.83521)
+use_collision = true
+collision_layer = 3
+collision_mask = 0
+size = Vector3(10, 2, 0.5)

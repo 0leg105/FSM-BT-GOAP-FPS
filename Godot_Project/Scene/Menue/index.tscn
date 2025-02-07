@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://b2msi7uqxxhfi"]
+
+[ext_resource type="Script" path="res://Script/Menue/index.gd" id="1_4t5yh"]
+[ext_resource type="PackedScene" uid="uid://cbjlayx3nebmh" path="res://Scene/Menue/scene_selector.tscn" id="1_hyrrr"]
+[ext_resource type="PackedScene" uid="uid://c2kmtrvoyxcr3" path="res://Scene/Decisionsystem Demos/GOAP Demo.tscn" id="3_htjh3"]
+[ext_resource type="PackedScene" uid="uid://b1tkmmimvj0jl" path="res://Scene/Decisionsystem Demos/FSM Demo.tscn" id="4_g1ojx"]
+[ext_resource type="PackedScene" uid="uid://kea5ha86ao07" path="res://Scene/Decisionsystem Demos/BT Demo.tscn" id="5_cucoy"]
+
+[node name="Index" type="Node2D"]
+script = ExtResource("1_4t5yh")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 585.0
+offset_top = 100.0
+offset_right = 1686.0
+offset_bottom = 237.0
+theme_override_font_sizes/font_size = 100
+text = "Entscheidungssysteme"
+
+[node name="GridContainer" type="GridContainer" parent="Label"]
+layout_mode = 0
+offset_left = -445.0
+offset_top = 223.0
+offset_right = 1555.0
+offset_bottom = 1023.0
+columns = 4
+
+[node name="GOAP Level" parent="Label/GridContainer" instance=ExtResource("1_hyrrr")]
+layout_mode = 2
+scene_text = "GOAP"
+scene = ExtResource("3_htjh3")
+
+[node name="FSM Level" parent="Label/GridContainer" instance=ExtResource("1_hyrrr")]
+layout_mode = 2
+scene_text = "FSM"
+scene = ExtResource("4_g1ojx")
+
+[node name="BT Level" parent="Label/GridContainer" instance=ExtResource("1_hyrrr")]
+layout_mode = 2
+scene_text = "BehaviorTree"
+scene = ExtResource("5_cucoy")
+
+[node name="Settings" type="Label" parent="."]
+offset_left = 140.0
+offset_top = 672.0
+offset_right = 180.0
+offset_bottom = 695.0
+theme_override_font_sizes/font_size = 30
+text = "Settings:
+Kamera-Wechsel: K
+Pause: P
+NPC-Label ausschalten: Z"

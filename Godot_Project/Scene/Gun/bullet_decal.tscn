@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://q213a4f60655"]
+
+[ext_resource type="Texture2D" uid="uid://hcmdrvo25k7n" path="res://Textures/pngimg.com - bullet_hole_PNG6062.png" id="1_rgmiv"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_nu3yd"]
+size = Vector2(0.25, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gq5x3"]
+transparency = 4
+albedo_texture = ExtResource("1_rgmiv")
+
+[node name="Bulletdecal" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.007893)
+mesh = SubResource("QuadMesh_nu3yd")
+surface_material_override/0 = SubResource("StandardMaterial3D_gq5x3")

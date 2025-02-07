@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dek8oafp2renc"]
+
+[ext_resource type="Script" path="res://Script/Components/Enemy/patrol_component.gd" id="1_x0ywx"]
+
+[node name="PatrolComponent" type="Node3D" groups=["Component"]]
+script = ExtResource("1_x0ywx")

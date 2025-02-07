@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bk50l4o3gnlev"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Finite State Machine/EnemyStates/Idle.gd" id="1_vk6hc"]
+
+[node name="Idle" type="Node"]
+script = ExtResource("1_vk6hc")

@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b63ip15e1bx8n"]
+
+[ext_resource type="Script" path="res://Script/Components/Enemy/melee_component.gd" id="1_isgiu"]
+
+[node name="MeleeComponent" type="Node3D" groups=["Component"]]
+script = ExtResource("1_isgiu")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

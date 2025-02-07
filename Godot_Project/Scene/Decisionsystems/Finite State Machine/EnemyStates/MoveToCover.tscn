@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bktqrwi1b8h2f"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Finite State Machine/EnemyStates/MoveToCover.gd" id="1_64lpn"]
+
+[node name="MoveToCover" type="Node"]
+script = ExtResource("1_64lpn")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqj1quq78lwh6"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Finite State Machine/FSM.gd" id="1_nra5l"]
+
+[node name="FSM" type="Node"]
+script = ExtResource("1_nra5l")

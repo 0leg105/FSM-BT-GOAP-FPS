@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bn1nrsovtgykw"]
+
+[ext_resource type="Script" path="res://Script/DecisionSystems/Finite State Machine/EnemyStates/SearchCover.gd" id="1_2anqo"]
+
+[node name="SearchCover" type="Node"]
+script = ExtResource("1_2anqo")
